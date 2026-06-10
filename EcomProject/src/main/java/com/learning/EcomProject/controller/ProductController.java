@@ -26,12 +26,12 @@ public class ProductController {
         return "Hello Harsh";
     }
 
-    @GetMapping("/products")
+    @GetMapping("/product")
     public ResponseEntity<List<Product>> getAllProducts(){
         return new ResponseEntity<>(service.getAllProducts(), HttpStatus.OK);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/product/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable int id){
 
         Product product = service.getProductById(id);
@@ -83,5 +83,11 @@ public class ProductController {
         else{
             return new ResponseEntity<>("Product Not Found",HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/product/search")
+    public ResponseEntity<List<Product>> searchProduct(@RequestParam String keyword){
+        List<Product> products = service.searchProduct(keyword);
+        return new ResponseEntity<>(products,HttpStatus.OK);
     }
 }
